@@ -8,6 +8,7 @@
 1. 執行 SpringBootSwaggerTestApplication.java
 2. SpringBoot根據 application.properties 設定初始化H2-DB
 3. 會在專案目錄下產生: MyH2DB.mv.db 資料庫檔案
+4. HttpGet: http://localhost:8080/RogerSpringBoot/TestController/sayHello 可測試 SayHello API
 
 ---
 ## 使用技術
