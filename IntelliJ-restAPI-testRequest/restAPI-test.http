@@ -1,0 +1,8 @@
+### 呼叫TestController
+GET http://localhost:8080/RogerSpringBoot/TestController/sayHello
+
+### 呼叫CountryController getAll
+GET http://localhost:8080/RogerSpringBoot/CountryController/country/getAll
+
+### 呼叫CountryController getById
+GET http://localhost:8080/RogerSpringBoot/CountryController/country/getById/100
