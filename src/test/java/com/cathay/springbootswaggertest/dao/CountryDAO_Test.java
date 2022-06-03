@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * @author RogerLo
@@ -24,13 +25,19 @@ public class CountryDAO_Test {
     @Test
     @Disabled
     void test001() {
-        countryDAO.findAll().stream().forEach(System.out::println);
+        countryDAO.findAll().stream().forEach(System.err::println);
     }
 
     @Test
     @Disabled
     void test002() {
-        System.err.println("countryDAO.findById(3L) = " + countryDAO.findById(3L).get());
+        Optional<CountryVO> countryOpt = countryDAO.findById(3L);
+        System.out.println("countryOpt.orElseGet(() -> {}) = " +
+                countryOpt.orElseGet(() ->
+                        CountryVO.builder()
+                                .countryId(99L)
+                                .countryName("印度")
+                                .build()));
     }
 
     @Test
@@ -52,11 +59,21 @@ public class CountryDAO_Test {
         countryDAO.save(CountryVO.builder().countryName("Taiwan").build());
     }
 
-
     @Test
     @Disabled
     @Rollback(value = false)
     void test006() {
         countryDAO.deleteCountryVOByCountryName("Taiwan");
     }
+
+    @Test
+    @Disabled
+    @Rollback(value = false)
+    void test007() {
+        CountryVO countryVO = countryDAO.findById(1L).get();
+        countryVO.setCountryName("America");
+        countryDAO.saveAndFlush(countryVO);
+        countryDAO.findAll().stream().forEach(System.err::println);
+    }
+
 }
