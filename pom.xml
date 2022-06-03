@@ -18,6 +18,16 @@
         <java.version>18</java.version>
     </properties>
 
+    <!-- swagger api 在這才有 (ref. https://stackoverflow.com/questions/52544761/swagger-dependency-not-recognized-by-maven) -->
+    <!-- springfox-swagger2、springfox-swagger-ui -->
+    <repositories>
+        <repository>
+            <id>jcenter-snapshots</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <dependency>
@@ -65,6 +75,22 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- swagger2的 3.0.0版本接入swagger-ui.html 404 報錯 -->
+        <!-- https://blog.csdn.net/weixin_43832505/article/details/108827411 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- 404，待研究 -->
+        <!-- bootstrap-ui,只是在改變頁面效果，訪問字尾：doc.html -->
+        <!-- <dependency>-->
+        <!--     <groupId>com.github.xiaoymin</groupId>-->
+        <!--     <artifactId>swagger-bootstrap-ui</artifactId>-->
+        <!--     <version>1.9.6</version>-->
+        <!-- </dependency>-->
 
     </dependencies>
 
