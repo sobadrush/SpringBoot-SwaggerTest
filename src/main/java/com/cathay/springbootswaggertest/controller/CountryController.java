@@ -5,19 +5,13 @@ import com.cathay.springbootswaggertest.model.CountryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -80,8 +74,9 @@ public class CountryController {
         return new ResponseEntity<>(countryId, HttpStatus.OK); // ▲ 可使用 return ResponseEntity<> 回應 Http 狀態碼，或是使用 @ResponseStatus (推薦！有 reason 較明確)
     }
 
-    @ApiOperation(value = "Swagger API: 修改國家", notes = "修改國家")
+    @ApiOperation(value = "Swagger API: 修改國家PUT", notes = "修改國家PUT")
     @PutMapping(value = "/country/modify/{cId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseStatus(code = HttpStatus.OK, reason = "Modify Country Success")
     public CountryVO modifyCountry(
             @ApiParam(required = true, value = "欲更新的國家資料")
             @RequestBody CountryVO newCountryVO,
@@ -91,12 +86,36 @@ public class CountryController {
             .map(existedCountryVO -> {
                 // 有找到 → 更新物件
                 existedCountryVO.setCountryName(newCountryVO.getCountryName());
-                return countryDAO.saveAndFlush(existedCountryVO);
+                existedCountryVO.setMemorialDay(newCountryVO.getMemorialDay());
+                CountryVO updatedCountryVO = countryDAO.saveAndFlush(existedCountryVO);
+                return updatedCountryVO;
             }).orElseGet(() -> {
                 // 沒找到 → 新增物件
                 newCountryVO.setCountryId(countryId);
-                return countryDAO.saveAndFlush(newCountryVO);
+                CountryVO insertedCountryVO = countryDAO.saveAndFlush(newCountryVO);
+                return insertedCountryVO;
             });
+    }
+
+    @ApiOperation(value = "Swagger API: 修改國家PATCH", notes = "修改國家PATCH")
+    @PatchMapping("/country/modify/{cId}")
+    public ResponseEntity<CountryVO> modifyCountryPartially(
+            @ApiParam(required = true, value = "欲更新的國家流水號")
+            @PathVariable(value = "cId") Long countryId,
+            @ApiParam(required = true, value = "欲更新的國家資料MODEL")
+            @RequestBody CountryVO countryForUpdate) throws ResourceNotFoundException {
+
+        CountryVO existCountry = countryDAO.findById(countryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Country not found on :: " + countryId));
+
+        if (StringUtils.isNotBlank(countryForUpdate.getCountryName())) {
+            existCountry.setCountryName(countryForUpdate.getCountryName());
+        }
+        if (countryForUpdate.getMemorialDay() != null) {
+            existCountry.setMemorialDay(countryForUpdate.getMemorialDay());
+        }
+        CountryVO updatedCountry = countryDAO.saveAndFlush(existCountry);
+        return ResponseEntity.ok(updatedCountry);
     }
 
 }
