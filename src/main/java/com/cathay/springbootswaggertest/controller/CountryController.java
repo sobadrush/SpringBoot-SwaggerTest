@@ -76,7 +76,6 @@ public class CountryController {
             @ApiParam(required = true, value = "欲刪除的國家流水號")
             @PathVariable("cId") Long countryId) {
         countryDAO.deleteById(countryId);
-        // ▲ 可使用 return ResponseEntity<> 回應 Http 狀態碼，或是使用 @ResponseStatus (推薦！有 reason 較明確)
-        return new ResponseEntity<>(countryId, HttpStatus.OK);
+        return new ResponseEntity<>(countryId, HttpStatus.OK); // ▲ 可使用 return ResponseEntity<> 回應 Http 狀態碼，或是使用 @ResponseStatus (推薦！有 reason 較明確)
     }
 }
