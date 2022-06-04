@@ -76,4 +76,15 @@ public class CountryControllerTest {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(endPointUrl, request, String.class);
         System.err.println("CountryControllerTest.test002 responseEntity = " + responseEntity);
     }
+
+    @Test
+    @Disabled
+    public void test003() {
+        final String endPointUrl = "http://localhost:"
+                + randomServerPort
+                + contextPath + "/CountryController/country/delete/{cid}";
+
+        // 使用 postForEntity (ref. https://howtodoinjava.com/spring-boot2/testing/testresttemplate-post-example/)
+        restTemplate.delete(endPointUrl.replace("{cid}", "8"));
+    }
 }
