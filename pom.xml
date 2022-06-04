@@ -58,6 +58,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 如果要使用 SpringBoot Actuator 提供的監控功能，需要先加入相關的 maven dependency -->
+        <!-- ref. https://kucw.github.io/blog/2020/7/spring-actuator/ -->
+        <!-- ⌘ 尚未有與 SpringBoot 2.7.0 匹配版本 -->
+        <!-- <dependency>-->
+        <!--     <groupId>org.springframework.boot</groupId>-->
+        <!--     <artifactId>spring-boot-starter-actuator</artifactId>-->
+        <!-- </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
