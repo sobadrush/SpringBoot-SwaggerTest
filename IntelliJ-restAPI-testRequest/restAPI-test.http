@@ -1,11 +1,22 @@
-### 呼叫TestController
+### 呼叫 TestController
 GET http://localhost:8080/RogerSpringBoot/TestController/sayHello
 
-### 呼叫CountryController: 查全部國家 getAll
+### 呼叫 CountryController: 查全部國家 getAll
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getAll
 
-### 呼叫CountryController: 根據流水ID查國家 getById
+### 呼叫 CountryController: 根據流水ID查國家 getById
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getById/100
 
-### 呼叫CountryController: 根據名稱查國家 getByName
+### 呼叫 CountryController: 根據名稱查國家 getByName
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getByName/Canada
+
+### 呼叫 CountryController: 新增國家 addOneCounty
+POST http://localhost:8080/RogerSpringBoot/CountryController/country
+Content-Type: application/json
+
+{
+  "countryName": "Denmark"
+}
+
+### 呼叫 CountryController: 刪除國家 deleteOneCountry
+DELETE http://localhost:8080/RogerSpringBoot/CountryController/country/delete/10
