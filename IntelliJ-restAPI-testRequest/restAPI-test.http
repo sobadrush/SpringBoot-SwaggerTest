@@ -15,16 +15,17 @@ POST http://localhost:8080/RogerSpringBoot/CountryController/country
 Content-Type: application/json
 
 {
-  "countryName": "Denmark"
+  "countryName": "Denmark",
+  "memorialDay": "1940-04-09"
 }
 
 ### 呼叫 CountryController: 刪除國家 deleteOneCountry
-DELETE http://localhost:8080/RogerSpringBoot/CountryController/country/delete/10
+DELETE http://localhost:8080/RogerSpringBoot/CountryController/country/delete/6
 
-### 呼叫 CountryController: 刪除國家 deleteOneCountry
-PUT http://localhost:8080/RogerSpringBoot/CountryController/country/modify/6
+### 呼叫 CountryController: 修改國家 modifyCountry
+PUT http://localhost:8080/RogerSpringBoot/CountryController/country/modify/1
 Content-Type: application/json
 
 {
-  "countryName": "TaiwanGGG"
+  "countryName": "America"
 }
