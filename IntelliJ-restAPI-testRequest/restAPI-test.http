@@ -29,3 +29,11 @@ Content-Type: application/json
 {
   "countryName": "America"
 }
+
+### 呼叫 CountryController: 修改國家部分資料 modifyCountry
+PATCH http://localhost:8080/RogerSpringBoot/CountryController/country/modify/1
+Content-Type: application/json
+
+{
+  "countryName": "USA-GG"
+}
