@@ -2,6 +2,7 @@ package com.cathay.springbootswaggertest.dao;
 
 import com.cathay.springbootswaggertest.SpringBootSwaggerTestApplication;
 import com.cathay.springbootswaggertest.model.CountryVO;
+import com.cathay.springbootswaggertest.utils.MyDateUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CountryDAO_Test {
     @Disabled
     void test002() {
         Optional<CountryVO> countryOpt = countryDAO.findById(3L);
-        System.out.println("countryOpt.orElseGet(() -> {}) = " +
+        System.err.println("countryOpt.orElseGet(() -> {}) = " +
                 countryOpt.orElseGet(() ->
                         CountryVO.builder()
                                 .countryId(99L)
@@ -56,14 +57,17 @@ public class CountryDAO_Test {
     @Disabled
     @Rollback(value = false)
     void test005() {
-        countryDAO.save(CountryVO.builder().countryName("Taiwan").build());
+        countryDAO.save(CountryVO.builder()
+                .countryName("Taiwan")
+                .memorialDay(MyDateUtil.strToSqlDate("1912-10-10"))
+                .build());
     }
 
     @Test
     @Disabled
     @Rollback(value = false)
     void test006() {
-        countryDAO.deleteCountryVOByCountryName("Taiwan");
+        countryDAO.deleteCountryVOByCountryName("France");
     }
 
     @Test
