@@ -28,17 +28,23 @@ public class CountryController {
     @Autowired
     private CountryDAO countryDAO;
 
-    @ApiOperation(value = "Swagger API: /country/getAll", notes = "查詢所有 Countries")
+    @ApiOperation(value = "Swagger API: 查所有國家", notes = "查詢所有 Countries")
     @GetMapping(value = "/country/getAll", produces = { MediaType.APPLICATION_JSON_VALUE })
     public Set<CountryVO> getAllCountries() {
         return countryDAO.findAll().stream().collect(Collectors.toSet());
     }
 
-    @ApiOperation(value = "Swagger API: /country/getById", notes = "查詢 Country By Id")
+    @ApiOperation(value = "Swagger API: 根據id查國家", notes = "查詢 Country By Id")
     @GetMapping(value = "/country/getById/{cid}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public CountryVO getCountryById(@PathVariable("cid") Long countryIdL) {
         return countryDAO.findById(countryIdL)
                 .orElseThrow(() -> new RuntimeException("無此 Country Id!"));
+    }
+
+    @ApiOperation(value = "Swagger API: 根據名稱查國家", notes = "查詢 Country By Name")
+    @GetMapping(value = "/country/getByName/{cName}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public CountryVO getCountryByName(@PathVariable("cName") String countryName) {
+        return countryDAO.queryByNameParam(countryName);
     }
 
 }

@@ -6,3 +6,6 @@ GET http://localhost:8080/RogerSpringBoot/CountryController/country/getAll
 
 ### 呼叫CountryController getById
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getById/100
+
+### 呼叫CountryController getByName
+GET http://localhost:8080/RogerSpringBoot/CountryController/country/getByName/Canada
