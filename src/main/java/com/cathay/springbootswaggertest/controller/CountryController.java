@@ -4,6 +4,7 @@ import com.cathay.springbootswaggertest.dao.CountryDAO;
 import com.cathay.springbootswaggertest.model.CountryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,14 +37,18 @@ public class CountryController {
 
     @ApiOperation(value = "Swagger API: 根據id查國家", notes = "查詢 Country By Id")
     @GetMapping(value = "/country/getById/{cid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public CountryVO getCountryById(@PathVariable("cid") Long countryIdL) {
+    public CountryVO getCountryById(
+            @ApiParam(required = true, value = "國家流水號")
+            @PathVariable("cid") Long countryIdL) {
         return countryDAO.findById(countryIdL)
                 .orElseThrow(() -> new RuntimeException("無此 Country Id!"));
     }
 
     @ApiOperation(value = "Swagger API: 根據名稱查國家", notes = "查詢 Country By Name")
     @GetMapping(value = "/country/getByName/{cName}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public CountryVO getCountryByName(@PathVariable("cName") String countryName) {
+    public CountryVO getCountryByName(
+            @ApiParam(required = true, value = "國家名稱")
+            @PathVariable("cName") String countryName) {
         return countryDAO.queryByNameParam(countryName);
     }
 
