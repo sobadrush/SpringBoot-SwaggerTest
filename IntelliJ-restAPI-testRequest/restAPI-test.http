@@ -20,3 +20,11 @@ Content-Type: application/json
 
 ### 呼叫 CountryController: 刪除國家 deleteOneCountry
 DELETE http://localhost:8080/RogerSpringBoot/CountryController/country/delete/10
+
+### 呼叫 CountryController: 刪除國家 deleteOneCountry
+PUT http://localhost:8080/RogerSpringBoot/CountryController/country/modify/6
+Content-Type: application/json
+
+{
+  "countryName": "TaiwanGGG"
+}

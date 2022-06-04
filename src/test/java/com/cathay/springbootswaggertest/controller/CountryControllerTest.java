@@ -83,8 +83,17 @@ public class CountryControllerTest {
         final String endPointUrl = "http://localhost:"
                 + randomServerPort
                 + contextPath + "/CountryController/country/delete/{cid}";
-
-        // 使用 postForEntity (ref. https://howtodoinjava.com/spring-boot2/testing/testresttemplate-post-example/)
         restTemplate.delete(endPointUrl.replace("{cid}", "8"));
     }
+
+    @Test
+    // @Disabled
+    public void test004() {
+        final String endPointUrl = "http://localhost:"
+                + randomServerPort
+                + contextPath + "/CountryController/country/modify/{cId}";
+        CountryVO countryForUpdatePut = CountryVO.builder().countryId(6L).countryName("TaiwanGG").build();
+        restTemplate.put(endPointUrl.replace("{cId}", "6"),countryForUpdatePut);
+    }
+
 }

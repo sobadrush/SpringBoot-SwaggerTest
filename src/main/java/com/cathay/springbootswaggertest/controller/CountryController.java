@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -78,4 +79,24 @@ public class CountryController {
         countryDAO.deleteById(countryId);
         return new ResponseEntity<>(countryId, HttpStatus.OK); // ▲ 可使用 return ResponseEntity<> 回應 Http 狀態碼，或是使用 @ResponseStatus (推薦！有 reason 較明確)
     }
+
+    @ApiOperation(value = "Swagger API: 修改國家", notes = "修改國家")
+    @PutMapping(value = "/country/modify/{cId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public CountryVO modifyCountry(
+            @ApiParam(required = true, value = "欲更新的國家資料")
+            @RequestBody CountryVO newCountryVO,
+            @ApiParam(required = true, value = "欲更新的國家流水號")
+            @PathVariable("cId") Long countryId) {
+        return countryDAO.findById(countryId)
+            .map(existedCountryVO -> {
+                // 有找到 → 更新物件
+                existedCountryVO.setCountryName(newCountryVO.getCountryName());
+                return countryDAO.saveAndFlush(existedCountryVO);
+            }).orElseGet(() -> {
+                // 沒找到 → 新增物件
+                newCountryVO.setCountryId(countryId);
+                return countryDAO.saveAndFlush(newCountryVO);
+            });
+    }
+
 }
