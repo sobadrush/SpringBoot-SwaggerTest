@@ -1,5 +1,6 @@
 package com.cathay.springbootswaggertest.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@ApiModel(description = "國家資料")
+@ApiModel(description = "國家資料Model")
 public class CountryVO {
 
     @Id
@@ -38,6 +39,11 @@ public class CountryVO {
     @ApiModelProperty(value = "國家英文名稱", required = true)
     @Column(name = "NAME", nullable = false)
     private String countryName;
+
+    @ApiModelProperty(value = "國家紀念日", required = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "MEMORIAL_DAY", nullable = true)
+    private java.sql.Date memorialDay;
 
     public CountryVO(String countryName) {
         this.countryName = countryName;
