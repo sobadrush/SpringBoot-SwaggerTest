@@ -18,7 +18,7 @@ public interface CountryDAO extends JpaRepository<CountryVO, Long> {
     CountryVO queryByName(String countryName);
 
     // 自定義SQL查詢(Native SQL) + 具名變數
-    @Query(value = "SELECT * FROM COUNTRY WHERE NAME = :c_name", nativeQuery = true)
+    @Query(value = "SELECT * FROM COUNTRY WHERE UPPER(NAME) = UPPER(:c_name)", nativeQuery = true)
     CountryVO queryByNameParam(@Param("c_name") String countryName);
 
     void deleteCountryVOByCountryName(String countryName);
