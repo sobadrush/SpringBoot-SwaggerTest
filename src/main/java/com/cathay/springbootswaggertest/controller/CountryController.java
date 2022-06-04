@@ -6,10 +6,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
@@ -50,6 +54,18 @@ public class CountryController {
             @ApiParam(required = true, value = "國家名稱")
             @PathVariable("cName") String countryName) {
         return countryDAO.queryByNameParam(countryName);
+    }
+
+    @ApiOperation(value = "Swagger API: 新增國家", notes = "新增國家")
+    @PostMapping(value = "/country", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseStatus(code = HttpStatus.CREATED, reason = "Create Country Success")
+    public Long addOneCounty(
+            @ApiParam(required = true, value = "欲新增的國家物件資料")
+            @RequestBody CountryVO countryVO) {
+        // ▲ 可使用 return ResponseEntity<> 回應 Http 狀態碼，或是使用 @ResponseStatus (推薦！有 reason 較明確)
+        CountryVO newCountryVO = countryDAO.saveAndFlush(countryVO);
+        // return new ResponseEntity<>(newCountryVO.getCountryId(), HttpStatus.CREATED);
+        return newCountryVO.getCountryId();
     }
 
 }
