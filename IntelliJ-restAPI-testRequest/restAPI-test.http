@@ -1,11 +1,11 @@
 ### 呼叫TestController
 GET http://localhost:8080/RogerSpringBoot/TestController/sayHello
 
-### 呼叫CountryController getAll
+### 呼叫CountryController: 查全部國家 getAll
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getAll
 
-### 呼叫CountryController getById
+### 呼叫CountryController: 根據流水ID查國家 getById
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getById/100
 
-### 呼叫CountryController getByName
+### 呼叫CountryController: 根據名稱查國家 getByName
 GET http://localhost:8080/RogerSpringBoot/CountryController/country/getByName/Canada
