@@ -6,11 +6,14 @@
 ---
 ## How to Run?
 1. 執行 SpringBootSwaggerTestApplication.java
-2. SpringBoot根據 application.properties 設定初始化H2-DB
+2. SpringBoot根據 application.properties 設定初始化 H2-DB
 3. 會在專案目錄下產生: MyH2DB.mv.db 資料庫檔案
 4. HttpGet: http://localhost:8080/RogerSpringBoot/TestController/sayHello 可測試 SayHello API
 5. 進入Swagger API: http://localhost:8080/RogerSpringBoot/swagger-ui/index.html
 6. 進入Swagger API: http://localhost:8080/RogerSpringBoot/v2/api-docs
+7. 使用 mvnw 啟動專案：```./mvnw spring-boot:run```
+8. 使用 mvnw 打包成 runnable jar：```./mvnw clean package -Dmaven.test.skip=true```
+9. 使用 java cmd啟動專案：```java -jar ./target/SpringBoot-SwaggerTest-0.0.1-SNAPSHOT.jar```
 
 ---
 ## 使用技術
