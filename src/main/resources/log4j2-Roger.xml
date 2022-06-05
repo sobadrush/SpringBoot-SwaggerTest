@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 參考：https://www.jianshu.com/p/8af9e649ad0e -->
+<!-- 參考：https://www.twblogs.net/a/5b7b88972b71770a43d8bf23 -->
+
+<!-- 設置log4j2的自身log級別為warn -->
+<!-- monitorInterval：Log4j2 能夠自動檢測修改配置 文件和重新配置本身，設置間隔秒數 -->
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss}][%-5p] %c:Line:%L - %m%n</Property>
+        <Property name="APP_LOG_ROOT">./Logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+
+        <RollingFile name="RollingFileAppender"
+                     fileName="${APP_LOG_ROOT}/aplog.log"
+                     filePattern="${APP_LOG_ROOT}/aplog-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+
+            <Policies> <!-- ref. https://www.cnblogs.com/yeyang/p/7944899.html -->
+                <!-- <TimeBasedTriggeringPolicy/> -->
+                <!-- SizeBasedTriggeringPolicy 規定了當日志文件達到了指定的size時，觸發rollover操作。size參數可以用KB、MB、GB等做後綴來指定具體的字節數，如20MB -->
+                <SizeBasedTriggeringPolicy size="2KB" />
+            </Policies>
+            <!-- DefaultRolloverStrategy: max 參數指定了「計數器(%i)的最大值」。一旦計數器達到了最大值，過舊的文件將被刪除。 -->
+            <!-- 如果filePattern中僅含有整數計數器（即%i），每次rollover時，文件重命名時的計數器將每次加1（初始值為1），若達到 max 的值，將刪除舊的文件。 -->
+            <DefaultRolloverStrategy max="3" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- additivity: 表示Logger不會在父Logger的appender裡輸出 -->
+        <Logger name="com.cathay.springbootswaggertest.controller" level="info" additivity="false">
+            <AppenderRef ref="RollingFileAppender" />
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Root>
+    </Loggers>
+
+</Configuration>
