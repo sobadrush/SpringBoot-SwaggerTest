@@ -15,6 +15,11 @@
 8. 使用 mvnw 打包成 runnable jar：```./mvnw clean package -Dmaven.test.skip=true```
 9. 使用 java cmd啟動專案：```java -jar ./target/SpringBoot-SwaggerTest-0.0.1-SNAPSHOT.jar```
 
+## How to 容器化?
+1. 編寫 Dockerfile
+2. 打包成Image：```docker build -t springboot-swagger-app .```
+3. 將Image run成容器：```docker run -idt --name my-swagger-app -p 9990:8080 springboot-swagger-app```
+
 ---
 ## 使用技術
 |  #  |      使用技術       | 版本      |
@@ -23,6 +28,7 @@
 |  2  |   H2 Database   | 2.1.212 |
 |  3  |     Swagger     | 3.0.0   |
 |  4  | Spring Data JPA |         |
+|  5  |     Docker      |         |
 
 ---
 ## 參考資料
