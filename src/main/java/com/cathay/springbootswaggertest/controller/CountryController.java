@@ -1,5 +1,6 @@
 package com.cathay.springbootswaggertest.controller;
 
+import com.cathay.springbootswaggertest.annotation.RogerShowInSwagger;
 import com.cathay.springbootswaggertest.dao.CountryDAO;
 import com.cathay.springbootswaggertest.model.CountryVO;
 import io.swagger.annotations.Api;
@@ -30,6 +31,7 @@ public class CountryController {
     @Autowired
     private CountryDAO countryDAO;
 
+    @RogerShowInSwagger
     @ApiOperation(value = "Swagger API: 查所有國家", notes = "查詢所有 Countries")
     @GetMapping(value = "/country/getAll", produces = { MediaType.APPLICATION_JSON_VALUE })
     public Set<CountryVO> getAllCountries() {
